@@ -22,10 +22,13 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                            <x-nav-link route="home">Inicio</x-nav-link>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="quienes-somos">Quienes Somos</a>
+                            <x-nav-link route="services">Servicios</x-nav-link>
+                        </li>
+                        <li class="nav-item">
+                            <x-nav-link route="about">Quienes somos</x-nav-link>
                         </li>
                     </ul>
                 </div>
