@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title ?? '' }} :: TecnoFix</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href={{ url("css/bootstrap.min.css") }}>
+    <link rel="stylesheet" href={{ url("css/styles.css") }}>
 </head>
 
 <body>
@@ -23,6 +23,9 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <x-nav-link route="home">Inicio</x-nav-link>
+                        </li>
+                        <li class="nav-item">
+                            <x-nav-link route="blog.index">Novedades</x-nav-link>
                         </li>
                         <li class="nav-item">
                             <x-nav-link route="services">Servicios</x-nav-link>
