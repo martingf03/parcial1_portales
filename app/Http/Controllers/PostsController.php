@@ -19,4 +19,9 @@ class PostsController extends Controller
     {
         return view('blog.view', ['post'=> Post::findOrFail($id),]);
     }
+
+    public function create()
+    {
+        return view('blog.create');
+    }
 }
