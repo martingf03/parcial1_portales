@@ -37,7 +37,10 @@
                 </div>
             </div>
         </nav>
-        <main>
+        <main class="container p-4">
+            @if (session()->has('success'))
+                <div class="alert alert-success">{!! session()->get('success') !!}</div>
+            @endif
             {{ $slot }}
         </main>
         <footer class="footer text-bg-dark text-center">
