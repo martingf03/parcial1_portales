@@ -16,4 +16,6 @@ Route::get('/blog/publicar', [\App\http\Controllers\PostsController::class, "cre
 
 Route::post('/blog/publicar', [\App\http\Controllers\PostsController::class, "store"])->name("blog.store");
 
+Route::delete('/blog/{id}/eliminar', [\App\http\Controllers\PostsController::class, "destroy"])->name("blog.destroy")->whereNumber("id");
 
+Route::get('/blog/{id}/eliminar', [\App\http\Controllers\PostsController::class, "delete"])->name("blog.delete")->whereNumber("id");
