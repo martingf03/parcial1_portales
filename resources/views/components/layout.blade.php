@@ -38,7 +38,9 @@
             </div>
         </nav>
         <main class="container p-4">
-            @if (session()->has('success'))
+            @if (session()->has('info'))
+                <div class="alert alert-success">{!! session()->get('info') !!}</div>
+            @elseif (session()->has('success'))
                 <div class="alert alert-success">{!! session()->get('success') !!}</div>
             @endif
             {{ $slot }}

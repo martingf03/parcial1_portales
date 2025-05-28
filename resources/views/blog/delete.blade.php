@@ -11,11 +11,11 @@
             class="fw-bold">{{ $post->title }}</span></p>
     <p>¿Querés proceder?</p>
     <div class="d-flex gap-2">
+        <a class="btn btn-secondary" href="{{ route('blog.index') }}">No, volver</a>
         <form action="{{ route('blog.destroy', ['id' => $post->id]) }}" method="post">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger">Sí, eliminar</button>
         </form>
-        <a class="btn btn-secondary" href="{{ route('blog.index') }}">No, volver</a>
     </div>
 </x-layout>

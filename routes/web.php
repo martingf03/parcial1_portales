@@ -19,3 +19,7 @@ Route::post('/blog/publicar', [\App\http\Controllers\PostsController::class, "st
 Route::delete('/blog/{id}/eliminar', [\App\http\Controllers\PostsController::class, "destroy"])->name("blog.destroy")->whereNumber("id");
 
 Route::get('/blog/{id}/eliminar', [\App\http\Controllers\PostsController::class, "delete"])->name("blog.delete")->whereNumber("id");
+
+Route::get('/blog/editar/{id}', [\App\http\Controllers\PostsController::class, "edit"])->name("blog.edit")->whereNumber("id");
+
+Route::put('/blog/editar/{id}', [\App\http\Controllers\PostsController::class, "update"])->name("blog.update")->whereNumber("update");

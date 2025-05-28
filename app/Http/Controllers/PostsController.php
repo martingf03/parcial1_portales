@@ -37,11 +37,11 @@ class PostsController extends Controller
             ],
             [
                 'title.required' => 'El título debe tener un valor',
-                'title.max' => 'El título no debe tener más de 255 caracteres',
+                'title.max' => 'El título no debe tener más de :max caracteres',
                 'summary.required' => 'El resumen debe tener un valor',
-                'summary.max' => 'El resumen no debe tener más de 1000 caracteres',
+                'summary.max' => 'El resumen no debe tener más de :max caracteres',
                 'content.required' => 'El contenido debe tener un valor',
-                'content.max' => 'El contenido no debe tener más de 10000 caracteres',
+                'content.max' => 'El contenido no debe tener más de :max caracteres',
                 'publish_date.required' => 'La fecha debe tener un valor',
             ]
         );
@@ -53,7 +53,7 @@ class PostsController extends Controller
         $post->save();
 
         return redirect()
-            ->route('blog.index')->with('success', 'La publicación <span class="fw-bold">' . e($input['title']) .  '</span> se creó exitosamente');
+            ->route('blog.index')->with('success', 'La publicación <span class="fw-bold">' . e($input['title']) .  '</span> se creó exitosamente.');
     }
 
     public function delete(int $id)
@@ -69,5 +69,50 @@ class PostsController extends Controller
         $post->delete();
 
         return redirect()->route('blog.index')->with('success', 'La publicación <span class="fw-bold">' . e($post->title) .  '</span> se eliminó exitosamente');
+    }
+
+    public function edit(int $id)
+    {
+        return view('blog.edit', [
+            'post' => Post::findOrFail($id),
+        ]);
+    }
+
+    public function update(Request $request, int $id)
+    {
+        $request->validate(
+            [
+                'title' => 'required|string|max:255',
+                'summary' => 'required|string|max:1000',
+                'content' => 'required|string|max:10000',
+                'publish_date' => 'required|date',
+                'featured' => 'boolean',
+            ],
+            [
+                'title.required' => 'El título debe tener un valor',
+                'title.max' => 'El título no debe tener más de :max caracteres',
+                'summary.required' => 'El resumen debe tener un valor',
+                'summary.max' => 'El resumen no debe tener más de :max caracteres',
+                'content.required' => 'El contenido debe tener un valor',
+                'content.max' => 'El contenido no debe tener más de :max caracteres',
+                'publish_date.required' => 'La fecha debe tener un valor',
+            ]
+        );
+
+        $post = Post::findOrFail($id);
+
+        $wasFeatured = $post->featured;
+
+        $post->update($request->all());
+
+        $redirect = redirect()->route('blog.index');
+
+        if ($wasFeatured && !$post->featured) {
+            $redirect->with('info', 'Editaste la publicación <span class="fw-bold">' . e($post->title) . '</span> para que ya no aparezca en la sección de novedades.');
+        } else {
+            $redirect->with('success', 'La publicación <span class="fw-bold">' . e($post->title) . '</span> se editó exitosamente.');
+        }
+
+        return $redirect;
     }
 }
