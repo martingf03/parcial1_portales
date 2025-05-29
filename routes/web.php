@@ -12,14 +12,21 @@ Route::get('/blog/index', [\App\http\Controllers\PostsController::class, "index"
 
 Route::get('/blog/{id}', [\App\http\Controllers\PostsController::class, "view"])->name("blog.view")->whereNumber("id");
 
-Route::get('/blog/publicar', [\App\http\Controllers\PostsController::class, "create"])->name("blog.create");
+Route::get('/blog/publicar', [\App\http\Controllers\PostsController::class, "create"])->name("blog.create")->middleware('auth');
 
-Route::post('/blog/publicar', [\App\http\Controllers\PostsController::class, "store"])->name("blog.store");
+Route::post('/blog/publicar', [\App\http\Controllers\PostsController::class, "store"])->name("blog.store")->middleware('auth');
 
-Route::delete('/blog/{id}/eliminar', [\App\http\Controllers\PostsController::class, "destroy"])->name("blog.destroy")->whereNumber("id");
+Route::delete('/blog/{id}/eliminar', [\App\http\Controllers\PostsController::class, "destroy"])->name("blog.destroy")->whereNumber("id")->middleware('auth');
 
-Route::get('/blog/{id}/eliminar', [\App\http\Controllers\PostsController::class, "delete"])->name("blog.delete")->whereNumber("id");
+Route::get('/blog/{id}/eliminar', [\App\http\Controllers\PostsController::class, "delete"])->name("blog.delete")->whereNumber("id")->middleware('auth');
 
-Route::get('/blog/editar/{id}', [\App\http\Controllers\PostsController::class, "edit"])->name("blog.edit")->whereNumber("id");
+Route::get('/blog/editar/{id}', [\App\http\Controllers\PostsController::class, "edit"])->name("blog.edit")->whereNumber("id")->middleware('auth');
 
-Route::put('/blog/editar/{id}', [\App\http\Controllers\PostsController::class, "update"])->name("blog.update")->whereNumber("update");
+Route::put('/blog/editar/{id}', [\App\http\Controllers\PostsController::class, "update"])->name("blog.update")->whereNumber("update")->middleware('auth');
+
+
+Route::get('iniciar-sesion', [\App\http\Controllers\AuthController::class, "login"])->name("auth.login");
+
+Route::post('iniciar-sesion', [\App\http\Controllers\AuthController::class, "authenticate"])->name("auth.autenticate");
+
+Route::post('cerrar-sesion', [\App\http\Controllers\AuthController::class, "logout"])->name("auth.logout");

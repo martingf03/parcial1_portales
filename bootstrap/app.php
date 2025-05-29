@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->redirectGuestsTo(function(\Illuminate\Http\Request $request) {
+            session()->flash('info', 'Se requiere estar autenticado para acceder a esta página.');
+            return route('auth.login');
+        });
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
