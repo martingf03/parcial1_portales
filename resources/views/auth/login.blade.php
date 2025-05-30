@@ -4,28 +4,41 @@
     <h1 class="mb-3 text-center">Iniciar sesión</h1>
 
     @if (session()->has('error'))
-        <div class="alert alert-danger mx-auto w-50">{!! session()->get('error') !!}</div>
+        <div class="alert alert-danger alert-dismissible fade show mx-auto w-25" role="alert">
+            {!! session()->get('error') !!}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     @endif
 
 
-    <form action="{{route('auth.autenticate')}}" method="post">
+    <form action="{{route('auth.authenticate')}}" method="post">
         @csrf
         <div class="container">
             <div class="mb-3 row">
                 <div class="col-6 d-flex flex-column mx-auto">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" id="email" class="form-label">
+                    <input type="email" name="email" id="email"
+                        class="form-control @error('email') is-invalid @enderror" @error('email') aria-invalid="true"
+                        aria-errormessage="error-email" @enderror value="{{ old('email') }}">
+                    @error('email')
+                        <div class="text-danger" id="error-email">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="mb-3 row">
                 <div class="col-6 d-flex flex-column mx-auto">
                     <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" name="password" id="password" class="form-label">
+                    <input type="password" name="password" id="password"
+                        class="form-control @error('password') is-invalid @enderror" @error('password')
+                        aria-invalid="true" aria-errormessage="error-password" @enderror>
+                    @error('password')
+                        <div class="text-danger" id="error-password">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
         </div>
         <div class="d-flex justify-content-center mt-4">
-            <button type="submit" class="btn btn-warning w-25">Ingresar</button>
+            <button type="submit" class="btn btn-pink w-25">Ingresar</button>
         </div>
     </form>
 </x-layout>

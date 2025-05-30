@@ -1,11 +1,22 @@
 <x-layout>
-    <x-slot:title>Novedades</x-slot:title>
-    <h1 class="m-3">Novedades</h1>
-    @auth
+    <x-slot:title>Blog</x-slot:title>
     <div class="container">
-        <a class="btn btn-warning" href="{{ route('blog.create') }}">Agregar publicación</a>
+        <h1 class="d-none">Blog</h1>
+        <div class="row">
+            <div class="col-12 col-xl-8 mx-auto">
+                <h2>Consejos de Taller</h2>
+                <p>En nuestro blog vas a encontrar consejos, guías y novedades para cuidar tu computadora, resolver
+                    problemas comunes y mantener tus equipos funcionando como deben.</p>
+                @auth
+                    <div class="my-3 text-end">
+                        <a class="btn btn-pink" href="{{ route('blog.create') }}">Agregar publicación</a>
+                    </div>
+                @endauth
+            </div>
+        </div>
     </div>
-    @endauth
+
+
 
     <div class="container">
         <div class="row mx-auto">

@@ -27,6 +27,6 @@ Route::put('/blog/editar/{id}', [\App\http\Controllers\PostsController::class, "
 
 Route::get('iniciar-sesion', [\App\http\Controllers\AuthController::class, "login"])->name("auth.login");
 
-Route::post('iniciar-sesion', [\App\http\Controllers\AuthController::class, "authenticate"])->name("auth.autenticate");
+Route::post('iniciar-sesion', [\App\http\Controllers\AuthController::class, "authenticate"])->name("auth.authenticate");
 
 Route::post('cerrar-sesion', [\App\http\Controllers\AuthController::class, "logout"])->name("auth.logout");

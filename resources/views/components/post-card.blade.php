@@ -1,6 +1,6 @@
-<div class="mb-3 p-4 rounded">
-    <h2 class="mb-3">{{ $post->title }}</h2>
-    <p class="mb-3">{{ $post->summary }}</p>
+<div class="m-4 p-4 rounded bg-post w-75 mx-auto">
+    <h2 class="mb-3 pb-3 border-bottom border-2">{{ $post->title }}</h2>
+    <p class="mb-4">{{ $post->summary }}</p>
     <div class="d-flex justify-content-between">
         @auth
         <div class="d-flex-gap-2">
@@ -9,6 +9,6 @@
         </div>
         @endauth
 
-        <a href="{{ route('blog.view', ['id' => $post->id]) }}" class="btn btn-warning">Leer más</a>
+        <a href="{{ route('blog.view', ['id' => $post->id]) }}" class="btn btn-pink">Leer más</a>
     </div>
 </div>

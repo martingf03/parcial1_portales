@@ -9,12 +9,13 @@
         <h1 class="mb-3">Editar publicación</h1>
 
         @if ($errors->any())
-            <div class="alert alert-danger">
+            <div class="alert alert-danger alert-dismissible fade show mx-auto w-25" role="alert">
                 Errores en los valores ingresados.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
-        <form action="{{ route('blog.update', ['id' => $post->id ]) }}" method="post">
+        <form action="{{ route('blog.update', ['id' => $post->id]) }}" method="post">
             @csrf
             @method('PUT')
             <div class="mb-3">
@@ -30,7 +31,8 @@
             <div class="mb-3">
                 <label for="summary" class="form-label">Resumen</label>
                 <textarea id="summary" name="summary" class="form-control @error('summary') is-invalid @enderror"
-                    @error('summary') aria-invalid="true" aria-errormessage="error-summary" @enderror>{{ old('summary', $post->summary) }}</textarea>
+                    @error('summary') aria-invalid="true" aria-errormessage="error-summary"
+                    @enderror>{{ old('summary', $post->summary) }}</textarea>
                 @error('summary')
                     <div class="text-danger" id="error-summary">{{ $message }}</div>
                 @enderror
@@ -38,10 +40,15 @@
             <div class="mb-3">
                 <label for="content" class="form-label">Contenido</label>
                 <textarea id="content" name="content" class="form-control @error('content') is-invalid @enderror"
-                    @error('content') aria-invalid="true" aria-errormessage="error-content" @enderror>{{ old('content', $post->content) }}</textarea>
+                    @error('content') aria-invalid="true" aria-errormessage="error-content"
+                    @enderror>{{ old('content', $post->content) }}</textarea>
                 @error('content')
                     <div class="text-danger" id="error-content">{{ $message }}</div>
                 @enderror
+
+                {{-- Comentado momentaneamente hasta llegar a ver carga de archivos en la BBDD. --}}
+
+                {{--
             </div>
             <div class="mb-3">
                 <label for="image" class="form-label">Imagen (opcional)</label>
@@ -50,12 +57,14 @@
             <div class="mb-3">
                 <label for="image_description" class="form-label">Descripción de la imagen (opcional)</label>
                 <input type="text" id="image_description" name="image_description" class="form-control">
-            </div>
+            </div> --}}
+
             <div class="mb-3">
                 <label for="publish_date" class="form-label">Fecha de publicación</label>
                 <input type="date" id="publish_date" name="publish_date"
                     class="form-control @error('publish_date') is-invalid @enderror" @error('publish_date')
-                    aria-invalid="true" aria-errormessage="error-publish-date" @enderror value="{{ old('publish_date', $post->publish_date) }}">
+                    aria-invalid="true" aria-errormessage="error-publish-date" @enderror
+                    value="{{ old('publish_date', $post->publish_date) }}">
                 @error('publish_date')
                     <div class="text-danger" id="error-date">{{ $message }}</div>
                 @enderror
@@ -67,7 +76,7 @@
             </div>
             <div class="mb-3">
                 <a href="{{ route('blog.index') }}" class="btn btn-secondary">Volver</a>
-                <button type="submit" class="btn btn-warning">Editar</button>
+                <button type="submit" class="btn btn-pink">Editar</button>
             </div>
         </form>
     </div>

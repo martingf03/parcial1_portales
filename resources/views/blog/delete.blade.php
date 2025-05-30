@@ -15,7 +15,7 @@
         <form action="{{ route('blog.destroy', ['id' => $post->id]) }}" method="post">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+            <button type="submit" class="btn btn-pink">Sí, eliminar</button>
         </form>
     </div>
 </x-layout>

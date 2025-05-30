@@ -13,20 +13,31 @@ class AuthController extends Controller
         return view("auth.login");
     }
 
-    public function authenticate()
+    public function authenticate(Request $request)
     {
-        $credentials = request()->only(["email", "password"]);
 
-        if (Auth::attempt($credentials)) {
+        $validated = $request->validate(
+            [
+                'email' => 'required|email',
+                'password' => 'required|string',
+            ],
+            [
+                'email.required' => 'Debes ingresar tu email.',
+                'email.email' => 'El email ingresado no es válido.',
+                'password.required' => 'Debes ingresar tu contraseña.',
+            ]
+        );
+
+        if (Auth::attempt($validated)) {
             return redirect()
-                ->intended(route("blog.index"))
-                ->with("success", "Sesión iniciada con éxito.");
+                ->intended(route('blog.index'))
+                ->with('success', 'Sesión iniciada con éxito.');
         }
 
         return redirect()
             ->back()
             ->withInput()
-            ->with("error", "Las credenciales ingresadas son incorrectas.");
+            ->with('error', 'Las credenciales ingresadas son incorrectas.');
     }
 
     public function logout(Request $request)
@@ -37,7 +48,7 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()
-        ->route("auth.login")
-        ->with("success","Sesión cerrada con éxito.");
+            ->route("auth.login")
+            ->with("success", "Sesión cerrada con éxito.");
     }
 }
