@@ -3,10 +3,12 @@
     <p class="mb-4">{{ $post->summary }}</p>
     <div class="d-flex justify-content-between">
         @auth
-        <div class="d-flex-gap-2">
-            <a href="{{ route('blog.edit', ['id' => $post->id]) }}" class="btn btn-secondary">Editar</a>
-            <a href="{{ route('blog.delete', ['id' => $post->id]) }}" class="btn btn-danger">Eliminar</a>
-        </div>
+            @if(auth()->user()->role === 'admin')
+                <div class="d-flex-gap-2">
+                    <a href="{{ route('blog.edit', ['id' => $post->id]) }}" class="btn btn-secondary">Editar</a>
+                    <a href="{{ route('blog.delete', ['id' => $post->id]) }}" class="btn btn-danger">Eliminar</a>
+                </div>
+            @endif
         @endauth
 
         <a href="{{ route('blog.view', ['id' => $post->id]) }}" class="btn btn-pink">Leer más</a>

@@ -8,9 +8,11 @@
                 <p>En nuestro blog vas a encontrar consejos, guías y novedades para cuidar tu computadora, resolver
                     problemas comunes y mantener tus equipos funcionando como deben.</p>
                 @auth
-                    <div class="my-3 text-end">
-                        <a class="btn btn-pink" href="{{ route('blog.create') }}">Agregar publicación</a>
-                    </div>
+                    @if(auth()->user()->role === 'admin')
+                        <div class="my-3 text-end">
+                            <a class="btn btn-pink" href="{{ route('blog.create') }}">Agregar publicación</a>
+                        </div>
+                    @endif
                 @endauth
             </div>
         </div>
