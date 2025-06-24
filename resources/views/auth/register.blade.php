@@ -20,7 +20,7 @@
                 <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror"
                     value="{{ old('name') }}" placeholder="Tu nombre">
                 @error('name')
-                    <div class="text-danger" id="error-name">{{ $message }}</div>
+                    <div class="text-danger mt-2" id="error-name">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -30,7 +30,7 @@
                     class="form-control @error('surname') is-invalid @enderror" value="{{ old('surname') }}"
                     placeholder="Tu apellido">
                 @error('surname')
-                    <div class="text-danger" id="error-surname">{{ $message }}</div>
+                    <div class="text-danger mt-2" id="error-surname">{{ $message }}</div>
                 @enderror
             </div>
         </div>
@@ -43,7 +43,7 @@
                     class="form-control @error('telephone') is-invalid @enderror" value="{{ old('telephone') }}"
                     placeholder="Tu teléfono">
                 @error('telephone')
-                    <div class="text-danger" id="error-telephone">{{ $message }}</div>
+                    <div class="text-danger mt-2" id="error-telephone">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -52,7 +52,7 @@
                 <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror"
                     value="{{ old('email') }}" placeholder="Tu correo electrónico">
                 @error('email')
-                    <div class="text-danger" id="error-email">{{ $message }}</div>
+                    <div class="text-danger mt-2" id="error-email">{{ $message }}</div>
                 @enderror
             </div>
         </div>
@@ -64,7 +64,7 @@
                 <input type="password" name="password" id="password"
                     class="form-control @error('password') is-invalid @enderror">
                 @error('password')
-                    <div class="text-danger" id="error-password">{{ $message }}</div>
+                    <div class="text-danger mt-2" id="error-password">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -82,7 +82,7 @@
                     class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}"
                     placeholder="Tu dirección">
                 @error('address')
-                    <div class="text-danger" id="error-address">{{ $message }}</div>
+                    <div class="text-danger mt-2" id="error-address">{{ $message }}</div>
                 @enderror
             </div>
             <div class="col-6 mx-auto">
@@ -90,7 +90,7 @@
                 <input type="text" name="cuil" id="cuil" class="form-control @error('cuil') is-invalid @enderror"
                     value="{{ old('cuil') }}" placeholder="Tu número de CUIL o CUIT">
                 @error('cuil')
-                    <div class="text-danger" id="error-cuil">{{ $message }}</div>
+                    <div class="text-danger mt-2" id="error-cuil">{{ $message }}</div>
                 @enderror
             </div>
         </div>

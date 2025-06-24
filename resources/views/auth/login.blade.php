@@ -21,7 +21,7 @@
                         class="form-control @error('email') is-invalid @enderror" @error('email') aria-invalid="true"
                         aria-errormessage="error-email" @enderror value="{{ old('email') }}" placeholder="Tu email">
                     @error('email')
-                        <div class="text-danger" id="error-email">{{ $message }}</div>
+                        <div class="text-danger mt-2" id="error-email">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
@@ -32,7 +32,7 @@
                         class="form-control @error('password') is-invalid @enderror" @error('password')
                         aria-invalid="true" aria-errormessage="error-password" @enderror>
                     @error('password')
-                        <div class="text-danger" id="error-password">{{ $message }}</div>
+                        <div class="text-danger mt-2" id="error-password">{{ $message }}</div>
                     @enderror
                 </div>
             </div>

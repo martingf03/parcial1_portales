@@ -25,9 +25,9 @@ class AuthController extends Controller
                 'password' => 'required|string',
             ],
             [
-                'email.required' => 'Debes ingresar tu email.',
-                'email.email' => 'El email ingresado no es válido.',
-                'password.required' => 'Debes ingresar tu contraseña.',
+                'email.required' => 'Debes ingresar tu email',
+                'email.email' => 'El email ingresado no es válido',
+                'password.required' => 'Debes ingresar tu contraseña',
             ]
         );
 
@@ -69,13 +69,34 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
             // Datos adicionales para sumar a la tabla clients del sql:
             'surname' => 'required|string|max:255',
-            'cuil' => 'required|string|max:20|unique:clients,cuil',
+            'cuil' => 'nullable|string|max:11|unique:clients,cuil',
             'telephone' => 'required|string|max:20',
             'address' => 'required|string|max:255',
         ], [
-            'email.unique' => 'Este email ya está registrado.',
-            'password.confirmed' => 'Las contraseñas no coinciden.',
-            'cuil.unique' => 'Este CUIL ya está registrado.',
+            'name.required' => 'Debes ingresar tu nombre',
+            'name.string' => 'El nombre debe ser texto válido',
+
+            'surname.required' => 'Debes ingresar tu apellido',
+            'surname.string' => 'El apellido debe ser texto válido',
+
+            'telephone.required' => 'Debes ingresar tu teléfono',
+            'telephone.string' => 'El teléfono debe ser texto válido',
+            'telephone.max' => 'El teléfono no debe exceder los 20 caracteres',
+
+            'email.unique' => 'Este email ya está registrado',
+            'email.required' => 'Debes ingresar tu email',
+            'email.email' => 'Ingresa un email válido',
+
+            'password.confirmed' => 'Las contraseñas no coinciden',
+            'password.required' => 'Debes ingresar una contraseña',
+            'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
+
+            'address.required' => 'Debes ingresar tu dirección',
+            'address.string' => 'La dirección debe ser texto válido',
+
+            'cuil.unique' => 'Este CUIL ya está registrado',
+            'cuil.string' => 'El CUIL debe ser texto válido',
+            'cuil.max' => 'El CUIL no debe exceder los 11 caracteres',
         ]);
 
         // Esto para la creación del User en tabla users del sql:
