@@ -51,6 +51,9 @@
                             <div class="nav-item">
                                 <x-nav-link route="auth.login">Iniciar sesión</x-nav-link>
                             </div>
+                            <div class="nav-item">
+                                <x-nav-link route="auth.register">Registrarse</x-nav-link>
+                            </div>
                         @endauth
                     </div>
                 </div>
@@ -72,7 +75,7 @@
             {{ $slot }}
         </main>
         <footer class="footer text-center ">
-            <p>Martín Goldaracena Fros - Portales y Comercio Electrónico - TP1</p>
+            <p>Martín Goldaracena Fros - Portales y Comercio Electrónico - TP2</p>
         </footer>
     </div>
     <script src={{url("js/bootstrap.bundle.min.js")}}></script>

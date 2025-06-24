@@ -30,3 +30,9 @@ Route::get('iniciar-sesion', [\App\http\Controllers\AuthController::class, "logi
 Route::post('iniciar-sesion', [\App\http\Controllers\AuthController::class, "authenticate"])->name("auth.authenticate");
 
 Route::post('cerrar-sesion', [\App\http\Controllers\AuthController::class, "logout"])->name("auth.logout");
+
+Route::get('/register',
+[\App\http\Controllers\AuthController::class, 'register'])->name('auth.register');
+
+Route::post('/register',
+[\App\http\Controllers\AuthController::class, 'store'])->name('auth.store');

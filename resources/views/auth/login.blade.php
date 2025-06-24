@@ -19,7 +19,7 @@
                     <label for="email" class="form-label">Email</label>
                     <input type="email" name="email" id="email"
                         class="form-control @error('email') is-invalid @enderror" @error('email') aria-invalid="true"
-                        aria-errormessage="error-email" @enderror value="{{ old('email') }}">
+                        aria-errormessage="error-email" @enderror value="{{ old('email') }}" placeholder="Tu email">
                     @error('email')
                         <div class="text-danger" id="error-email">{{ $message }}</div>
                     @enderror
