@@ -2,6 +2,10 @@
     <x-slot:title>Servicios</x-slot:title>
     <h1 class="mb-3 text-center">Nuestros servicios</h1>
 
+    <div class="d-flex justify-content-center mb-2">
+        <a href="{{ route('orders.create') }}" class="btn btn-pink">Contratar servicios</a>
+    </div>
+
     <div class="container mb-3">
         <h2 class="mb-3">Software</h2>
         <div class="row">

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('client_id')->constrained('clients');
+            $table->enum('status', ['pending', 'confirmed', 'in_progress', 'completed', 'cancelled'])->default('pending');
+            $table->unsignedInteger('total_price');
+            $table->text('problem_description')->nullable();
+            $table->unsignedInteger('estimated_days');
             $table->timestamps();
         });
     }

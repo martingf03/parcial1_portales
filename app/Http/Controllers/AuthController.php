@@ -18,7 +18,6 @@ class AuthController extends Controller
 
     public function authenticate(Request $request)
     {
-
         $validated = $request->validate(
             [
                 'email' => 'required|email',
@@ -33,7 +32,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($validated)) {
             return redirect()
-                ->intended(route('blog.index'))
+                ->intended(route('home'))
                 ->with('success', 'Sesión iniciada con éxito.');
         }
 
@@ -121,7 +120,7 @@ class AuthController extends Controller
         Auth::login($user);
 
         return redirect()
-            ->route('blog.index')
+            ->route('home')
             ->with('success', '¡Registro exitoso! Ahora estás autenticado.');
     }
 }

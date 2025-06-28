@@ -18,8 +18,6 @@
         </div>
     </div>
 
-
-
     <div class="container">
         <div class="row mx-auto">
             <div class="col-12">

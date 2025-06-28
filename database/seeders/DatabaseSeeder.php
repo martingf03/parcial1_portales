@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             PostSeeder::class,
             ServiceSeeder::class,
             ClientSeeder::class,
+            UpdateAdminUserRoleSeeder::class,
+            OrderSeeder::class,
         ]);
     }
 }

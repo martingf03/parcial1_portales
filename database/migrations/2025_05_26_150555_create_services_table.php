@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('price')->nullable();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->boolean('featured')->default(false);
+            $table->unsignedInteger('duration')->default(1);
             $table->timestamps();
         });
     }

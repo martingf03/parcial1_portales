@@ -34,13 +34,12 @@ h1, h2, h3, h4, h5 {
 }
 
 .nav-link {
-    border-bottom: solid 2px #3c0b74;
     text-transform: uppercase;
     font-weight: 300;
 }
 
 .nav-link:hover {
-    border-bottom: solid 2px #f805bc;
+    text-decoration: underline 2px solid #f805bc;
 }
 
 .nav-link.active {
@@ -83,7 +82,7 @@ h1, h2, h3, h4, h5 {
 
 .footer {
     background-color: #270849;
-    border-top: solid 3px #ff40cf;
+    border-top: solid 3px #f805bc;
 }
 
 .bg-post {
@@ -100,14 +99,77 @@ h1, h2, h3, h4, h5 {
 }
 
 .text-pink {
-    color: #ff40cf;
+    color: #f805bc;
 }
 
-.card {
+.my-card {
     background-color: #270849;
     color: whitesmoke;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .w-80 {
     width: 80%;
+}
+
+.link-pink {
+    color: #f805bc;
+    text-decoration: none;
+}
+
+.link-pink:hover {
+    color: #ff40cf;
+    text-decoration: underline;
+}
+
+.link-pink:focus {
+    color: #ff40cf;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(248, 5, 188, 0.5);
+}
+
+.custom-checkbox:checked {
+    background-color: #f805bc;
+    border-color: #f805bc;
+}
+
+.custom-checkbox:checked::after {
+    color: white;
+}
+
+.custom-checkbox {
+    accent-color: #f805bc;
+}
+
+.border-bottom-pink {
+    border-bottom: 2px solid #f805bc;
+}
+
+.perfil-cliente-ordenes {
+    width: 95%;
+}
+
+@media (min-width: 576px) {
+    .perfil-cliente-ordenes {
+        width: 90%;
+    }
+}
+
+@media (min-width: 768px) {
+    .perfil-cliente-ordenes {
+        width: 75%;
+    }
+}
+
+@media (min-width: 992px) {
+    .perfil-cliente-ordenes {
+        width: 60%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .perfil-cliente-ordenes {
+        width: 50%;
+    }
 }

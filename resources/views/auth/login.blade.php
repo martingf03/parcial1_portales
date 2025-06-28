@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:title>Iniciar sesión</x-slot:title>
 
-    <h1 class="mb-3 text-center">Iniciar sesión</h1>
+    <h1 class="mt-4 mb-3 text-center">Iniciar sesión</h1>
 
     @if (session()->has('error'))
         <div class="alert alert-danger alert-dismissible fade show mx-auto w-25" role="alert">
@@ -41,4 +41,7 @@
             <button type="submit" class="btn btn-pink w-25">Ingresar</button>
         </div>
     </form>
+
+    <p class="text-center mt-5">¿No tenés un usuario? Registrate <a href="{{ 'register' }}" class="link-pink">acá</a>.</p>
+
 </x-layout>

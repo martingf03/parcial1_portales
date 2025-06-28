@@ -10,6 +10,8 @@
     <link rel="stylesheet" href={{ url("css/styles.css") }}>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
     <link
         href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:ital,wght@0,100..1000;1,100..1000&family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
@@ -24,8 +26,10 @@
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <div class="navbar-nav">
+
+                    <div class="navbar-nav me-auto">
                         <div class="nav-item">
                             <x-nav-link route="home">Inicio</x-nav-link>
                         </div>
@@ -39,19 +43,31 @@
                             <x-nav-link route="about">Quienes somos</x-nav-link>
                         </div>
                         @auth
-                            <div class="nav-item">
-                                <form action="{{ url('cerrar-sesion') }}" method="post">
-                                    @csrf
-                                    <button type="submit" class="nav-link text-light">
-                                        Cerrar sesión
-                                    </button>
-                                </form>
-                            </div>
+                            @if(auth()->user()->role === 'admin')
+                                <div class="nav-item">
+                                    <x-nav-link route="clients.list">Lista de clientes</x-nav-link>
+                                </div>
+                            @endif
+                        @endauth
+                    </div>
+
+                    <div class="d-flex ms-auto align-items-center gap-3">
+                        @auth
+                            <x-nav-link route="client.profile">
+                                <i
+                                    class="{{ auth()->user()->name === 'admin' ? 'fa-solid fa-wrench' : 'fa-solid fa-user' }} me-1"></i>{{ auth()->user()->name }}
+                            </x-nav-link>
+                            <form action="{{ url('cerrar-sesion') }}" method="post" class="d-flex align-items-center">
+                                @csrf
+                                <button type="submit" class="nav-link me-2">
+                                    Cerrar sesión
+                                </button>
+                            </form>
                         @else
-                            <div class="nav-item">
+                            <div class="nav-item me-2">
                                 <x-nav-link route="auth.login">Iniciar sesión</x-nav-link>
                             </div>
-                            <div class="nav-item">
+                            <div class="nav-item me-2">
                                 <x-nav-link route="auth.register">Registrarse</x-nav-link>
                             </div>
                         @endauth

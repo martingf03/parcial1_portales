@@ -15,14 +15,24 @@ class ClientSeeder extends Seeder
     {
         DB::table('clients')->insert([
             [
-                'name'=> 'Belén',
-                'surname'=> 'Greco',
-                'telephone'=> '1122334455',
-                'address'=> 'Calle Ficticia 5000',
-                'cuil'=>'27101112223',
-                'user_id'=> 2,
-                'created_at'=>now(),
-                'updated_at'=>now(),
+                'name' => 'admin',
+                'surname' => 'admin',
+                'telephone' => 'none',
+                'address' => 'Tienda',
+                'cuil' => null,
+                'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Belén',
+                'surname' => 'Greco',
+                'telephone' => '1122334455',
+                'address' => 'Calle Ficticia 5000',
+                'cuil' => '27101112223',
+                'user_id' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
     }
