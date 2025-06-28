@@ -10,7 +10,7 @@
             </div>
         @else
             @foreach ($clients as $client)
-                <div class="my-card p-4 mb-4 shadow-sm mx-auto perfil-cliente-ordenes">
+                <div class="my-card p-4 mb-4 shadow-sm mx-auto custom-mq">
                     <h2 class="mb-3">{{ $client->name }} {{ $client->surname }}</h2>
 
                     <ul class="list-group mb-3">

@@ -9,7 +9,7 @@
                     problemas comunes y mantener tus equipos funcionando como deben.</p>
                 @auth
                     @if(auth()->user()->role === 'admin')
-                        <div class="my-3 text-end">
+                        <div class="my-3 text-center">
                             <a class="btn btn-pink" href="{{ route('blog.create') }}">Agregar publicación</a>
                         </div>
                     @endif

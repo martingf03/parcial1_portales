@@ -1,4 +1,4 @@
-<div class="m-4 p-4 rounded bg-post w-75 mx-auto">
+<div class="m-4 p-4 rounded bg-post custom-mq mx-auto">
     <h2 class="mb-3 pb-3 border-bottom border-2">{{ $post->title }}</h2>
     <p class="mb-4">{{ $post->summary }}</p>
     <div class="d-flex justify-content-between">

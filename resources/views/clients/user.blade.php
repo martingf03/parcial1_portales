@@ -6,7 +6,7 @@
         <h2 class="text-center mb-4">
             ¡Hola! {{ $client->name }}
         </h2>
-        <div class="my-card p-4 shadow-sm mx-auto mb-5 perfil-cliente-ordenes">
+        <div class="my-card p-4 shadow-sm mx-auto mb-5 custom-mq">
             <p class="mb-3 text-center">Tus datos registrados en el sistema son:</p>
             <ul class="list-group w-100">
                 <li class="list-group-item">
@@ -47,13 +47,8 @@
                 </li>
             </ul>
         </div>
-        @if (session('success'))
-            <div class="alert alert-success w-50 mx-auto">
-                {{ session('success') }}
-            </div>
-        @endif
 
-        <div class="perfil-cliente-ordenes mx-auto">
+        <div class="custom-mq mx-auto">
             <h3 class="mb-3 text-center">Tus pedidos realizados</h3>
 
             @php

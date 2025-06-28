@@ -4,7 +4,7 @@
     <div class="container">
         <h2 class="mb-4 text-center">Pedido #{{ $order->id }}</h2>
 
-        <div class="my-card p-4 mb-4 shadow-sm perfil-cliente-ordenes mx-auto">
+        <div class="my-card p-4 mb-4 shadow-sm custom-mq mx-auto">
             <p class="fs-5 fw-bold mb-2">Descripción del problema</p>
             <p>{{ $order->problem_description }}</p>
             @php

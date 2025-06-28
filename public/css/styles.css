@@ -109,6 +109,10 @@ h1, h2, h3, h4, h5 {
     margin-bottom: 1.5rem;
 }
 
+.textarea-h {
+    height: 150px;
+}
+
 .w-80 {
     width: 80%;
 }
@@ -146,30 +150,30 @@ h1, h2, h3, h4, h5 {
     border-bottom: 2px solid #f805bc;
 }
 
-.perfil-cliente-ordenes {
+.custom-mq {
     width: 95%;
 }
 
 @media (min-width: 576px) {
-    .perfil-cliente-ordenes {
+    .custom-mq {
         width: 90%;
     }
 }
 
 @media (min-width: 768px) {
-    .perfil-cliente-ordenes {
+    .custom-mq {
         width: 75%;
     }
 }
 
 @media (min-width: 992px) {
-    .perfil-cliente-ordenes {
+    .custom-mq {
         width: 60%;
     }
 }
 
 @media (min-width: 1200px) {
-    .perfil-cliente-ordenes {
+    .custom-mq {
         width: 50%;
     }
 }

@@ -1,5 +1,11 @@
 <x-layout>
     <x-slot:title>Página Principal</x-slot:title>
+    @if (session()->has('error'))
+        <div class="alert alert-danger alert-dismissible fade show mx-auto w-25" role="alert">
+            {!! session()->get('error') !!}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="container">
         <div class="row d-flex flex-column-reverse flex-md-row">
             <div class="col-12 col-md-6 d-flex align-items-center">
@@ -8,7 +14,7 @@
                     <img src="{{ url('img/logo.png') }}" alt="Logo de TecnoFix" class="d-block w-75">
                     <p>Servicio técnico a domicilio y en taller. Mantenimiento, instalación, limpieza y todo lo que tu
                         computadora necesita para funcionar al 100%.</p>
-                        <a href="{{ route('services') }}" class="btn btn-pink mt-3">Conocé más</a>
+                    <a href="{{ route('services') }}" class="btn btn-pink mt-3">Conocé más</a>
                 </div>
             </div>
             <div class="col-12 col-md-6 d-flex justify-content-center align-content-center">
