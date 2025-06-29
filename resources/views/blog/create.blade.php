@@ -7,7 +7,7 @@
     <div class="container custom-mq">
         <h1 class="mb-3 text-center">Agregar nueva publicación</h1>
         <div class="my-card p-4">
-            <form action="{{ route('blog.store') }}" method="post">
+            <form action="{{ route('blog.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label for="title" class="form-label">Título</label>
@@ -38,16 +38,15 @@
                     @enderror
                 </div>
 
-                {{-- Comentado momentaneamente hasta llegar a ver carga de archivos en la BBDD. --}}
-
-                {{-- <div class="mb-3">
+                <div class="mb-3">
                     <label for="image" class="form-label">Imagen (opcional)</label>
                     <input type="file" id="image" name="image" class="form-control">
                 </div>
+
                 <div class="mb-3">
                     <label for="image_description" class="form-label">Descripción de la imagen (opcional)</label>
                     <input type="text" id="image_description" name="image_description" class="form-control">
-                </div> --}}
+                </div>
 
                 <div class="mb-3">
                     <label for="publish_date" class="form-label">Fecha de publicación</label>

@@ -15,7 +15,7 @@
             </div>
         @endif
         <div class="my-card p-4">
-            <form action="{{ route('blog.update', ['id' => $post->id]) }}" method="post">
+            <form action="{{ route('blog.update', ['id' => $post->id]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
@@ -26,6 +26,26 @@
                     @error('title')
                         <div class="text-danger" id="error-title">{{ $message }}</div>
                     @enderror
+                </div>
+                <p>Imagen actual:</p>
+                @if($post->image && \Illuminate\Support\Facades\Storage::has($post->image))
+                    <div class="mb-3">
+                        <img
+                        src="{{ \Illuminate\Support\Facades\Storage::url($post->image) }}"
+                        alt="{{ $post->image_description }}"
+                        class="d-block custom-mq mx-auto"
+                        >
+                    </div>
+                @else
+                    <p class="mx-auto text-center border border-light rounded custom-mq p-3 py-5 my-3 fst-italic fw-light">La publicación no tiene imagen.</p>
+                @endif
+                <div class="mb-3">
+                    <label for="image" class="form-label">Imagen (opcional)</label>
+                    <input type="file" id="image" name="image" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="image_description" class="form-label">Descripción de la imagen (opcional)</label>
+                    <input type="text" id="image_description" name="image_description" class="form-control" value="{{ old('image_description', $post->image_description) }}">
                 </div>
                 <div class="mb-3">
                     <label for="summary" class="form-label">Resumen</label>
@@ -45,19 +65,6 @@
                         <div class="text-danger" id="error-content">{{ $message }}</div>
                     @enderror
                 </div>
-                    {{-- Comentado momentaneamente hasta llegar a ver carga de archivos en la BBDD. --}}
-
-                    {{--
-                </div>
-                <div class="mb-3">
-                    <label for="image" class="form-label">Imagen (opcional)</label>
-                    <input type="file" id="image" name="image" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="image_description" class="form-label">Descripción de la imagen (opcional)</label>
-                    <input type="text" id="image_description" name="image_description" class="form-control">
-                </div> --}}
-
                 <div class="mb-3">
                     <label for="publish_date" class="form-label">Fecha de publicación</label>
                     <input type="date" id="publish_date" name="publish_date"

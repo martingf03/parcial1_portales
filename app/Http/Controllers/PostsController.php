@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -48,6 +49,10 @@ class PostsController extends Controller
 
         $input = $request->all();
 
+        if($request->hasFile('image')) {
+            $input['image'] = $request->file('image')->store('post_images', 'public');
+        }
+
         $post = new Post();
         $post->fill($input);
         $post->save();
@@ -68,7 +73,15 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         $post->delete();
 
-        return redirect()->route('blog.index')->with('success', 'La publicación <span class="fw-bold">' . e($post->title) .  '</span> se eliminó exitosamente');
+        if(
+            $post->image &&
+            Storage::has($post->image)
+        ) {
+            Storage::delete($post->image);
+        }
+
+        return redirect()->route('blog.index')
+        ->with('success', 'La publicación <span class="fw-bold">' . e($post->title) .  '</span> se eliminó exitosamente');
     }
 
     public function edit(int $id)
@@ -103,7 +116,24 @@ class PostsController extends Controller
 
         $wasFeatured = $post->featured;
 
-        $post->update($request->all());
+        // $post->update($request->all());
+
+        $input = $request->except(['_token', '_method']);
+        $oldImage = $post->image;
+
+        if($request->hasFile('image')) {
+            $input['image'] = $request->file('image')->store('post_images', 'public');
+        }
+
+        $post->update($input);
+
+        if(
+            $request->hasFile('image') &&
+            $oldImage &&
+            Storage::has($oldImage)
+        ) {
+            Storage::delete($oldImage);
+        }
 
         $redirect = redirect()->route('blog.index');
 
