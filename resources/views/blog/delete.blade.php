@@ -3,7 +3,7 @@
 ?>
 
 <x-layout>
-    <x-slot:title>Detalle de la publicación {{ $post->title }}</x-slot:title>
+    <x-slot:title>Eliminar publicación {{ $post->title }}</x-slot:title>
     <h1 class="my-3 text-center">Eliminar publicación</h1>
     <div class="container">
         <div class="custom-mq my-card p-4 mx-auto">

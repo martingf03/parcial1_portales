@@ -4,9 +4,9 @@
 
 <x-layout>
     <x-slot:title>Agregar publicación</x-slot:title>
-    <div class="container custom-mq">
+    <div class="container">
         <h1 class="mb-3 text-center">Agregar nueva publicación</h1>
-        <div class="my-card p-4">
+        <div class="my-card p-4 custom-mq mx-auto">
             <form action="{{ route('blog.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
@@ -15,7 +15,7 @@
                         @error('title') aria-invalid="true" aria-errormessage="error-title" @enderror
                         value="{{ old('title') }}">
                     @error('title')
-                        <div class="text-danger" id="error-title">{{ $message }}</div>
+                        <div class="text-danger mt-2" id="error-title">{{ $message }}</div>
                     @enderror
 
                 </div>
@@ -25,7 +25,7 @@
                         @error('summary') aria-invalid="true" aria-errormessage="error-summary"
                         @enderror>{{ old('summary') }}</textarea>
                     @error('summary')
-                        <div class="text-danger" id="error-summary">{{ $message }}</div>
+                        <div class="text-danger mt-2" id="error-summary">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
@@ -34,7 +34,7 @@
                         @error('content') aria-invalid="true" aria-errormessage="error-content"
                         @enderror>{{ old('content') }}</textarea>
                     @error('content')
-                        <div class="text-danger" id="error-content">{{ $message }}</div>
+                        <div class="text-danger mt-2" id="error-content">{{ $message }}</div>
                     @enderror
                 </div>
 
@@ -55,7 +55,7 @@
                         aria-invalid="true" aria-errormessage="error-publish-date" @enderror
                         value="{{ old('publish_date') }}">
                     @error('publish_date')
-                        <div class="text-danger" id="error-date">{{ $message }}</div>
+                        <div class="text-danger mt-2" id="error-date">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-check mb-3">

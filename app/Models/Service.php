@@ -7,13 +7,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Service extends Model
 {
+    protected $table = "services";
+
+    protected $primaryKey = "id";
+
     protected $fillable = [
         'service_name',
         'description',
         'price',
         'category_id',
         'featured',
-        'duration'
+        'duration',
     ];
 
     public function category()

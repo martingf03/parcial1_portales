@@ -2,8 +2,13 @@
     <x-slot:title>Servicios</x-slot:title>
     <h1 class="mb-3 text-center">Nuestros servicios</h1>
 
-    <div class="d-flex justify-content-center mb-2">
-        <a href="{{ route('orders.create') }}" class="btn btn-pink">Contratar servicios</a>
+    <div class="d-flex justify-content-center gap-3 mb-2">
+        <a href="{{ route('orders.create') }}" class="btn-pink">Contratar servicios</a>
+        @auth
+            @if(auth()->user()->role === 'admin')
+                <a href="{{ route('services.create') }}" class="btn btn-secondary">Agregar nuevo servicio</a>
+            @endif
+        @endauth
     </div>
 
     <div class="container mb-3">

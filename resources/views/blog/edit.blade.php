@@ -20,7 +20,11 @@
                 @method('PUT')
                 <div class="mb-3">
                     <label for="title" class="form-label">Título</label>
-                    <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror"
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        class="form-control @error('title') is-invalid @enderror"
                         @error('title') aria-invalid="true" aria-errormessage="error-title" @enderror
                         value="{{ old('title', $post->title) }}">
                     @error('title')
