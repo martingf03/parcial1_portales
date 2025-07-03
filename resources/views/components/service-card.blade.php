@@ -1,5 +1,5 @@
 <div class="col-6 d-flex flex-wrap">
-    <div class="my-card p-4 shadow-sm">
+    <div class="my-card p-4 shadow-sm w-100">
         <h3 class="border-2 border-bottom border-light pb-3 mb-3">{{ $service->service_name }}</h3>
         <p>{{ $service->description }}</p>
         <div class="d-flex align-items-center justify-content-between">
