@@ -27,7 +27,7 @@
                         @enderror" @error('service_name') aria-invalid="true" aria-errormessage="error-service_name"
                         @enderror value="{{ old('service_name', $service->service_name) }}">
                     @error('service_name')
-                        <div class="text-danger mt-2" id="error-service_name">{{ $message }}</div>
+                        <div class="bg-alert p-2 mt-2 rounded" id="error-service_name"><i class="fa-solid fa-circle-exclamation" class="text-danger"></i> {{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
@@ -37,7 +37,7 @@
                             aria-invalid="true" aria-errormessage="error-description"
                         @enderror>{{ old('description', $service->description) }}</textarea>
                     @error('description')
-                        <div class="text-danger mt-2" id="error-description">{{ $message }}</div>
+                        <div class="bg-alert p-2 mt-2 rounded" id="error-description"><i class="fa-solid fa-circle-exclamation" class="text-danger"></i> {{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
@@ -46,7 +46,7 @@
                         class="form-control @error('price') is-invalid @enderror" @error('price') aria-invalid="true"
                         aria-errormessage="error-price" @enderror value="{{ old('price', $service->price) }}">
                     @error('price')
-                        <div class="text-danger mt-2" id="error-price">{{ $message }}</div>
+                        <div class="bg-alert p-2 mt-2 rounded" id="error-price"><i class="fa-solid fa-circle-exclamation" class="text-danger"></i> {{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
@@ -56,7 +56,7 @@
                         aria-invalid="true" aria-errormessage="error-duration" @enderror
                         value="{{ old('duration', $service->duration) }}">
                     @error('duration')
-                        <div class="text-danger mt-2" id="error-duration">{{ $message }}</div>
+                        <div class="bg-alert p-2 mt-2 rounded" id="error-duration"><i class="fa-solid fa-circle-exclamation" class="text-danger"></i> {{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
@@ -75,7 +75,7 @@
                     </div>
 
                     @error('category_id')
-                        <div class="text-danger mt-2 d-block" id="error-category_id">{{ $message }}</div>
+                        <div class="bg-alert p-2 mt-2 rounded" id="error-category_id"><i class="fa-solid fa-circle-exclamation" class="text-danger"></i> {{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-check mb-3">

@@ -31,6 +31,9 @@ class OrderController extends Controller
             'service_ids' => 'required|array',
             'service_ids.*' => 'exists:services,id',
             'problem_description' => 'required|string'
+        ],[
+            'service_ids.required' => 'Debe elegir al menos un servicio',
+            'problem_description.required' => 'Debe llenar el campo con la descripción de su problema.'
         ]);
 
         $client = Auth::user()->client;

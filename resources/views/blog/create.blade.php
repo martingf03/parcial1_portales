@@ -6,6 +6,12 @@
     <x-slot:title>Agregar publicación</x-slot:title>
     <div class="container">
         <h1 class="mb-3 text-center">Agregar nueva publicación</h1>
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show mx-auto w-25" role="alert">
+                Errores en los valores ingresados.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="my-card p-4 custom-mq mx-auto">
             <form action="{{ route('blog.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -15,7 +21,7 @@
                         @error('title') aria-invalid="true" aria-errormessage="error-title" @enderror
                         value="{{ old('title') }}">
                     @error('title')
-                        <div class="text-danger mt-2" id="error-title">{{ $message }}</div>
+                        <div class="bg-alert p-2 mt-2 rounded" id="error-title"><i class="fa-solid fa-circle-exclamation" class="text-danger"></i> {{ $message }}</div>
                     @enderror
 
                 </div>
@@ -25,7 +31,7 @@
                         @error('summary') aria-invalid="true" aria-errormessage="error-summary"
                         @enderror>{{ old('summary') }}</textarea>
                     @error('summary')
-                        <div class="text-danger mt-2" id="error-summary">{{ $message }}</div>
+                        <div class="bg-alert p-2 mt-2 rounded" id="error-summary"><i class="fa-solid fa-circle-exclamation" class="text-danger"></i> {{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
@@ -34,7 +40,7 @@
                         @error('content') aria-invalid="true" aria-errormessage="error-content"
                         @enderror>{{ old('content') }}</textarea>
                     @error('content')
-                        <div class="text-danger mt-2" id="error-content">{{ $message }}</div>
+                        <div class="bg-alert p-2 mt-2 rounded" id="error-content"><i class="fa-solid fa-circle-exclamation" class="text-danger"></i> {{ $message }}</div>
                     @enderror
                 </div>
 
@@ -55,7 +61,7 @@
                         aria-invalid="true" aria-errormessage="error-publish-date" @enderror
                         value="{{ old('publish_date') }}">
                     @error('publish_date')
-                        <div class="text-danger mt-2" id="error-date">{{ $message }}</div>
+                        <div class="bg-alert p-2 mt-2 rounded" id="error-date"><i class="fa-solid fa-circle-exclamation" class="text-danger"></i> {{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-check mb-3">
@@ -69,14 +75,6 @@
                 </div>
             </form>
         </div>
-        @if ($errors->any())
-            <div class="alert alert-danger alert-dismissible fade show mx-auto w-25" role="alert">
-                Errores en los valores ingresados.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-
-
     </div>
 
 </x-layout>

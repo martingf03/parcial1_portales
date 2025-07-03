@@ -15,6 +15,10 @@
 
         <div class="container mt-2">
             <h2 class="text-center mb-4">Elegí los servicios que quieras contratar</h2>
+            @error('service_ids')
+                <div class="bg-alert p-2 mt-2 rounded"><i class="fa-solid fa-circle-exclamation" class="text-danger"></i>
+                    {{ $message }}</div>
+            @enderror
             <div class="row my-4">
                 @foreach($services as $service)
                     <div class="col-6">
@@ -29,14 +33,12 @@
                             </div>
                             <div class="pt-2">
                                 <p>Duración: {{ $service->duration }}
-                                    {{ $service->duration == 1 ? 'día hábil' : 'días hábiles' }} | ${{$service->price }}</p>
+                                    {{ $service->duration == 1 ? 'día hábil' : 'días hábiles' }} | ${{$service->price }}
+                                </p>
                             </div>
                         </div>
                     </div>
                 @endforeach
-                @error('service_ids')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
             </div>
         </div>
 
@@ -46,7 +48,8 @@
                 class="form-control @error('problem_description') is-invalid @enderror" rows="5"
                 required>{{ old('problem_description') }}</textarea>
             @error('problem_description')
-                <div class="invalid-feedback">{{ $message }}</div>
+                <div class="bg-alert p-2 mt-2 rounded invalid-feedback"><i class="fa-solid fa-circle-exclamation"
+                        class="text-danger"></i> {{ $message }}</div>
             @enderror
         </div>
 
