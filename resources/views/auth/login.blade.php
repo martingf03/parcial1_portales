@@ -42,6 +42,6 @@
         </div>
     </form>
 
-    <p class="text-center mt-5">¿No tenés un usuario? Registrate <a href="{{ 'register' }}" class="link-pink">acá</a>.</p>
+    <p class="text-center mt-5">¿No tenés un usuario? Registrate <a href="{{ route('auth.register') }}" class="link-pink">acá</a>.</p>
 
 </x-layout>
