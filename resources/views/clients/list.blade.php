@@ -47,25 +47,35 @@
                     @php
                         $statusTranslations = [
                             'pending' => 'Pendiente',
-                            'approved' => 'Aprobado',
-                            'rejected' => 'Rechazado',
-                            'in_progress' => 'En progreso',
+                            'paid' => 'Pagado',
                             'completed' => 'Completado',
+                            'cancelled' => 'Cancelado',
                         ];
                     @endphp
                     @if ($client->orders->isEmpty())
                         <div class="bg-light rounded text-black">
                             <p class="my-3 p-3">Sin servicios contratados.</p>
                         </div>
-
                     @else
                         @foreach ($client->orders as $order)
-                            <div class="mb-4 p-3 bg-light rounded text-black">
+                            @php
+                                $badgeClass = match ($order->status) {
+                                    'pending' => 'warning',
+                                    'paid' => 'success',
+                                    'cancelled' => 'danger',
+                                    'completed' => 'primary',
+                                    default => 'dark',
+                                };
+                            @endphp
+                            <div
+                                class="mb-4 p-3 bg-light rounded text-black {{ $order->status === 'cancelled' ? 'cancelled-order' : 'bg-light' }}">
                                 <h3 class="mb-2">
                                     Pedido #{{ $order->id }} - Fecha: {{ $order->created_at->format('d/m/Y') }}
                                 </h3>
-                                <p>
-                                    Estado: {{ $statusTranslations[$order->status] ?? ucfirst($order->status) }}
+                                <p class="fs-5">
+                                    <span class="badge bg-{{ $badgeClass }}">
+                                        {{ $statusTranslations[$order->status] ?? $order->status }}
+                                    </span>
                                 </p>
                                 <div class="pb-4 border-bottom-pink">
                                     <ul class="list-group">

@@ -10,17 +10,28 @@
             @php
                 $statusTranslations = [
                     'pending' => 'Pendiente',
-                    'approved' => 'Aprobado',
-                    'rejected' => 'Rechazado',
-                    'in_progress' => 'En progreso',
+                    'paid' => 'Pagado',
                     'completed' => 'Completado',
+                    'cancelled' => 'Cancelado',
                 ];
             @endphp
             <p class="fs-5 fw-bold mb-2 mt-4">Fecha de la orden</p>
             <p> {{ $order->created_at->format('d/m/Y') }} </p>
-
+            @php
+                $badgeClass = match ($order->status) {
+                    'pending' => 'warning',
+                    'paid' => 'success',
+                    'cancelled' => 'danger',
+                    'completed' => 'primary',
+                    default => 'dark',
+                };
+            @endphp
             <p class="fs-5 fw-bold mb-2 mt-4">Estado del pedido</p>
-            <p>{{ $statusTranslations[$order->status] ?? $order->status }}</p>
+            <p class="fs-5">
+                <span class="badge bg-{{ $badgeClass }}">
+                    {{ $statusTranslations[$order->status] ?? $order->status }}
+                </span>
+            </p>
 
             <p class="fs-5 fw-bold mb-2 mt-4">Servicios contratados</p>
             <div class="mb-4 pb-4 border-bottom-pink">
@@ -37,9 +48,11 @@
             <p class="mt-2 mb-4">Tiempo estimado: {{ $order->estimated_days }}
                 {{ $order->estimated_days == 1 ? 'día hábil' : 'días hábiles' }}
             </p>
-            <div class="d-flex justify-content-center gap-3 my-4">
-                <a href="{{ route('home') }}" class="btn btn-secondary">Volver al inicio</a>
-                <a href="{{ route('client.profile') }}" class="btn-pink">Ir a mi perfil</a>
+            <div class="d-flex justify-content-center gap-2 my-4">
+                <a href="{{ route('client.profile') }}" class="btn btn-secondary">Ir a mi perfil</a>
+                @if ($order->status === 'pending')
+                    <a href="{{ route('orders.cancel.confirmation', $order) }}" class="btn-pink">Cancelar pedido</a>
+                @endif
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@
     <div class="container">
         <div class="custom-mq my-card p-4 mx-auto">
             <div class="mx-auto my-4 text-center">
-                <p>Vas a <span class="fw-bold">eliminar</span> la siguiente publicación:
+                <p>Vas a <span class="fw-bold">eliminar</span> la siguiente publicación:</p>
                 <p class="fw-bold fs-5 pb-4 border-bottom-pink">{{ $post->title }}</p>
                 <p>¿Querés proceder?</p>
             </div>

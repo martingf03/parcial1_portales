@@ -31,7 +31,7 @@ class OrderController extends Controller
             'service_ids' => 'required|array',
             'service_ids.*' => 'exists:services,id',
             'problem_description' => 'required|string'
-        ],[
+        ], [
             'service_ids.required' => 'Debe elegir al menos un servicio',
             'problem_description.required' => 'Debe llenar el campo con la descripción de su problema.'
         ]);
@@ -77,5 +77,31 @@ class OrderController extends Controller
         return view('orders.show', [
             'order' => $order
         ]);
+    }
+
+    public function cancelConfirmation($id)
+    {
+        $order = Order::with('services')->findOrFail($id);
+
+        if ($order->client_id !== Auth::user()->client->id) {
+            abort(403, 'No se puede mostrar el contenido.');
+        }
+
+        if ($order->status !== 'pending') {
+            return redirect()->route('orders.show', $id)->with('Solo podés cancelar pedidos pendientes.');
+        }
+
+        return view('orders.cancel', [
+            'order' => $order
+        ]);
+    }
+
+    public function cancel($id)
+    {
+        $order = Order::with('services')->findOrFail($id);
+        $order->status = 'cancelled';
+        $order->save();
+
+        return redirect()->route('client.profile')->with('success', "Cancelaste el pedido #{$order->id}");
     }
 }

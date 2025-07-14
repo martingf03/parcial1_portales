@@ -20,7 +20,7 @@
 
 <body class="bg-violet text-white">
     <div id="app">
-        <nav class="navbar navbar-dark navbar-expand-md">
+        <nav class="navbar navbar-dark navbar-expand-md gradient-border">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,7 +83,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @elseif (session()->has('success'))
-                <div class="alert alert-success alert-dismissible fade show mx-auto w-25" role="alert">
+                <div class="alert alert-success alert-dismissible fade show mx-auto w-50" role="alert">
                     {!! session()->get('success') !!}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -91,7 +91,7 @@
             {{ $slot }}
         </main>
         <footer class="footer text-center ">
-            <p>Martín Goldaracena Fros - Portales y Comercio Electrónico - TP2</p>
+            <p>Martín Goldaracena Fros - Portales y Comercio Electrónico</p>
         </footer>
     </div>
     <script src={{url("js/bootstrap.bundle.min.js")}}></script>

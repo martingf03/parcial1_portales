@@ -46,43 +46,59 @@
                     </div>
                 </li>
             </ul>
+            <div class="text-center mt-4">
+                <a href="{{ route('client.edit') }}" class="btn-pink">Editar mis datos</a>
+            </div>
         </div>
+
+
 
         <div class="custom-mq mx-auto">
             <h3 class="mb-3 text-center">Tus pedidos realizados</h3>
-
             @php
                 $statusTranslations = [
                     'pending' => 'Pendiente',
-                    'approved' => 'Aprobado',
-                    'rejected' => 'Rechazado',
-                    'in_progress' => 'En progreso',
+                    'paid' => 'Pagado',
                     'completed' => 'Completado',
+                    'cancelled' => 'Cancelado',
                 ];
             @endphp
-
             @if (count($orders) > 0)
                 @foreach ($orders as $order)
-                    <div class="my-card p-4 mb-4 shadow-sm">
-                        <p class="mb-2 fw-bold fs-5">Pedido #{{ $order->id }}</p>
-                        <div class="mb-4 pb-4 border-bottom-pink">
-                            <ul class="list-group">
-                                @foreach ($order->services as $service)
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <span>{{ $service->service_name }}</span>
-                                        <span>${{ $service->pivot->price }}</span>
-                                    </li>
-                                @endforeach
-                            </ul>
+                    @if ($order->status !== 'cancelled')
+                        @php
+                            $badgeClass = match ($order->status) {
+                                'pending' => 'warning',
+                                'paid' => 'success',
+                                'cancelled' => 'danger',
+                                'completed' => 'primary',
+                                default => 'dark',
+                            };
+                        @endphp
+                        <div class="my-card p-4 mb-4 shadow-sm">
+                            <p class="mb-1 fw-bold fs-5">Pedido #{{ $order->id }}</p>
+                            <span class="mb-2 badge bg-{{ $badgeClass }}">
+                                {{ $statusTranslations[$order->status] ?? $order->status }}
+                            </span>
+                            <div class="mb-4 pb-4 border-bottom-pink">
+                                <ul class="list-group">
+                                    @foreach ($order->services as $service)
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span>{{ $service->service_name }}</span>
+                                            <span>${{ $service->pivot->price }}</span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <p class="mb-2 fw-bold fs-5">Total: ${{ $order->total_price }}</p>
+                            <p class="mb-2">Tiempo estimado: {{ $order->estimated_days }}
+                                {{ $order->estimated_days == 1 ? 'día hábil' : 'días hábiles' }}
+                            </p>
+                            <div class="text-center mt-4">
+                                <a href="{{ route('orders.show', $order->id) }}" class="btn-pink">Ver detalle</a>
+                            </div>
                         </div>
-                        <p class="mb-2 fw-bold fs-5">Total: ${{ $order->total_price }}</p>
-                        <p class="mb-2">Tiempo estimado: {{ $order->estimated_days }}
-                            {{ $order->estimated_days == 1 ? 'día hábil' : 'días hábiles' }}
-                        </p>
-                        <div class="text-center mt-4">
-                            <a href="{{ route('orders.show', $order->id) }}" class="btn-pink">Ver detalle</a>
-                        </div>
-                    </div>
+                    @endif
                 @endforeach
             @else
                 <div class="my-card">

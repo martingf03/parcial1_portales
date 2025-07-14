@@ -120,8 +120,24 @@ Route::get('/ordenes/{id}', [\App\Http\Controllers\OrderController::class, 'show
     ->name('orders.show')
     ->middleware('auth');
 
+Route::get('/ordenes/{id}/cancelar', [\App\Http\Controllers\OrderController::class, 'cancelConfirmation'])
+    ->name('orders.cancel.confirmation')
+    ->middleware('auth');
+
+Route::post('/ordenes/{id}/cancelar', [\App\Http\Controllers\OrderController::class, 'cancel'])
+    ->name('orders.cancel')
+    ->middleware('auth');
+
 Route::get('/cliente', [\App\Http\Controllers\ClientController::class, 'user'])
     ->name('client.profile')
+    ->middleware('auth');
+
+Route::get('/clientes/editar', [\App\Http\Controllers\ClientController::class, 'edit'])
+    ->name('client.edit')
+    ->middleware('auth');
+
+Route::put('/clientes/editar', [\App\Http\Controllers\ClientController::class, 'update'])
+    ->name('client.update')
     ->middleware('auth');
 
 Route::get('/clientes/list', [\App\Http\Controllers\ClientController::class, 'list'])

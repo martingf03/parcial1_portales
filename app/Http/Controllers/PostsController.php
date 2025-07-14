@@ -116,8 +116,6 @@ class PostsController extends Controller
 
         $wasFeatured = $post->featured;
 
-        // $post->update($request->all());
-
         $input = $request->except(['_token', '_method']);
         $oldImage = $post->image;
 
