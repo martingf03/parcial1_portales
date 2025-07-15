@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use MercadoPago\MercadoPagoConfig;
+use MercadoPago\Client\Preference\PreferenceClient;
+use MercadoPago\Client\Preference;
+
 
 class OrderController extends Controller
 {
@@ -103,5 +108,71 @@ class OrderController extends Controller
         $order->save();
 
         return redirect()->route('client.profile')->with('success', "Cancelaste el pedido #{$order->id}");
+    }
+
+    /* Las funciones de pago de MercadoPago */
+
+    public function pay(Order $order)
+    {
+        if ($order->client_id !== Auth::user()->client->id || $order->status !== 'pending') {
+            abort(403, 'No tenés permisos para realizar esta acción.');
+        }
+
+        $accessToken = config('mercadopago.access_token');
+        $publicKey = config('mercadopago.public_key');
+
+        MercadoPagoConfig::setAccessToken($accessToken);
+
+        $item = [
+            'title' => "Pago por orden #{$order->id}",
+            'quantity' => 1,
+            'unit_price' => (float) $order->total_price,
+            'currency_id' => 'ARS'
+        ];
+
+        $backUrls = array(
+            'success' => route('orders.success', $order),
+            'failure' => route('orders.failure', $order),
+            'pending' => route('orders.pending', $order)
+        );
+
+
+        $client = new PreferenceClient();
+        try {
+            $preference = $client->create([
+                'items' => [$item],
+            ]);
+            $preference->back_urls=$backUrls;
+            $preference->auto_return='approved';
+        } catch (\MercadoPago\Exceptions\MPApiException $e) {
+            dd($e->getApiResponse());
+        }
+
+
+        return view('orders.payment', [
+            'preference_id' => $preference->id,
+            'public_key' => $publicKey,
+            'order' => $order
+        ]);
+    }
+
+    public function success()
+    {
+        return view('orders.success');
+    }
+
+    public function failure()
+    {
+        return view('orders.failure');
+    }
+
+    public function pending()
+    {
+        return view('orders.pending');
+    }
+
+    public function paymentConfirmation(Request $request)
+    {
+        Log::info(collect($request->input()));
     }
 }

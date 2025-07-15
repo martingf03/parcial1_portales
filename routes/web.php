@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, "home"])
@@ -7,6 +8,8 @@ Route::get('/', [\App\Http\Controllers\HomeController::class, "home"])
 
 Route::get('/quienes-somos', [\App\Http\Controllers\AboutController::class, "about"])
     ->name("about");
+
+/* Rutas para servicios */
 
 Route::get('/servicios', [\App\Http\Controllers\ServicesController::class, "services"])
     ->name("services");
@@ -44,6 +47,8 @@ Route::get('/servicios/{id}/eliminar', [\App\Http\Controllers\ServicesController
     ->whereNumber("id")
     ->middleware('auth')
     ->middleware(App\Http\Middleware\VerifyAdminRole::class);
+
+/* Rutas para blog */
 
 Route::get('/blog/index', [\App\Http\Controllers\PostsController::class, "index"])
     ->name("blog.index");
@@ -86,6 +91,7 @@ Route::put('/blog/editar/{id}', [\App\Http\Controllers\PostsController::class, "
     ->middleware('auth')
     ->middleware(App\Http\Middleware\VerifyAdminRole::class);
 
+/* Rutas para auth */
 
 Route::get('/iniciar-sesion', [\App\Http\Controllers\AuthController::class, "login"])
     ->name("auth.login");
@@ -105,6 +111,8 @@ Route::post(
     '/registro',
     [\App\Http\Controllers\AuthController::class, 'store']
 )->name('auth.store');
+
+/* Rutas para vistas de ordenes */
 
 Route::get(
     '/ordenes/crear',
@@ -128,6 +136,35 @@ Route::post('/ordenes/{id}/cancelar', [\App\Http\Controllers\OrderController::cl
     ->name('orders.cancel')
     ->middleware('auth');
 
+/* Rutas de pagos */
+
+Route::get('/ordenes/{order}/pagar', [\App\Http\Controllers\OrderController::class, 'pay'])
+    ->name('orders.pay')
+    ->middleware('auth');
+
+Route::post('/ordenes/{order}/pagar', [\App\Http\Controllers\OrderController::class, 'pay'])
+    ->name('orders.pay')
+    ->middleware('auth');
+
+Route::get('/ordenes/{order}/exito', [\App\Http\Controllers\OrderController::class, 'success'])
+    ->name('orders.success')
+    ->middleware('auth');
+
+Route::get('/ordenes/{order}/falla', [\App\Http\Controllers\OrderController::class, 'failure'])
+    ->name('orders.failure')
+    ->middleware('auth');
+
+Route::get('/ordenes/{order}/pendiente', [\App\Http\Controllers\OrderController::class, 'pending'])
+    ->name('orders.pending')
+    ->middleware('auth');
+
+Route::post('/ordenes/confirmacion-pago', [\App\Http\Controllers\OrderController::class, 'paymentConfirmation'])
+    ->name('orders.payment-confirmation')
+    ->withoutMiddleware([VerifyCsrfToken::class]);
+
+
+/* Rutas para vistas y edición de usuario */
+
 Route::get('/cliente', [\App\Http\Controllers\ClientController::class, 'user'])
     ->name('client.profile')
     ->middleware('auth');
@@ -144,3 +181,4 @@ Route::get('/clientes/list', [\App\Http\Controllers\ClientController::class, 'li
     ->name('clients.list')
     ->middleware('auth')
     ->middleware(App\Http\Middleware\VerifyAdminRole::class);
+

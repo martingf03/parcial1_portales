@@ -52,6 +52,7 @@
                 <a href="{{ route('client.profile') }}" class="btn btn-secondary">Ir a mi perfil</a>
                 @if ($order->status === 'pending')
                     <a href="{{ route('orders.cancel.confirmation', $order) }}" class="btn-pink">Cancelar pedido</a>
+                    <a href="{{ route('orders.pay', $order) }}" class="btn btn-info">Pagar con MercadoPago</a>
                 @endif
             </div>
         </div>
