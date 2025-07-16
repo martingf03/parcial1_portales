@@ -158,8 +158,9 @@ h1, h2, h3, h4, h5 {
     border-bottom: 2px solid #f805bc;
 }
 
-.custom-mq {
-    width: 95%;
+.img-success {
+    display: block;
+    max-width: 150px;
 }
 
 .cancelled-order {
@@ -171,6 +172,10 @@ h1, h2, h3, h4, h5 {
     color: #183c73;
     font-weight: bold;
     font-size: 14px;
+}
+
+.custom-mq {
+    width: 95%;
 }
 
 @media (min-width: 576px) {

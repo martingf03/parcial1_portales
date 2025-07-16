@@ -14,7 +14,11 @@ class Order extends Model
         'total_price',
         'estimated_days',
         'problem_description',
-        'scheduled_at',
+        'paid_at'
+    ];
+
+    protected $casts = [
+        'paid_at' => 'datetime',
     ];
 
     public function client(): BelongsTo

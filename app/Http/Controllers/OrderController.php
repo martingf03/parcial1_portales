@@ -8,9 +8,10 @@ use App\Models\Order;
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Carbon;
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
-use MercadoPago\Client\Preference;
+use MercadoPago\Client\Payment\PaymentClient;
 
 
 class OrderController extends Controller
@@ -131,48 +132,90 @@ class OrderController extends Controller
         ];
 
         $backUrls = array(
-            'success' => route('orders.success', $order),
-            'failure' => route('orders.failure', $order),
-            'pending' => route('orders.pending', $order)
+            'success' => str_replace('http://', 'https://', route('orders.success', $order)),
+            'failure' => str_replace('http://', 'https://', route('orders.failure', $order)),
         );
-
 
         $client = new PreferenceClient();
         try {
             $preference = $client->create([
                 'items' => [$item],
+                'back_urls' => $backUrls,
+                'auto_return' => 'approved',
+                'external_reference' => $order->id,
+                'notification_url' => url(route('orders.payment-confirmation')),
+                'binary_mode' => true
             ]);
-            $preference->back_urls=$backUrls;
-            $preference->auto_return='approved';
+
+            return view('orders.payment', [
+                'preference_id' => $preference->id,
+                'public_key' => $publicKey,
+                'order' => $order
+            ]);
         } catch (\MercadoPago\Exceptions\MPApiException $e) {
             dd($e->getApiResponse());
         }
+    }
 
+    public function success(Request $request, Order $order)
+    {
+        $paymentId = $request->query('payment_id');
+        $status = $request->query('status');
 
-        return view('orders.payment', [
-            'preference_id' => $preference->id,
-            'public_key' => $publicKey,
-            'order' => $order
+        if ($status === 'approved' && !$order->paid_at) {
+            $order->update([
+                'status' => 'paid',
+                'paid_at' => now()
+            ]);
+        }
+
+        return view('orders.success', compact('order'));
+    }
+
+    public function failure(Request $request, Order $order)
+    {
+        $status = $request->query('status');
+        $paymentId = $request->query('payment_id');
+
+        return view('orders.failure', [
+            'order' => $order,
+            'status' => $status,
+            'payment_id' => $paymentId,
         ]);
     }
 
-    public function success()
-    {
-        return view('orders.success');
-    }
+        public function paymentConfirmation(Request $request)
+        {
+            Log::info('Webhook recibido', $request->all());
 
-    public function failure()
-    {
-        return view('orders.failure');
-    }
+            $type = $request->get('type');
+            $id = $request->get('data')['id'] ?? null;
 
-    public function pending()
-    {
-        return view('orders.pending');
-    }
+            if ($type === 'payment' && $id) {
+                try {
+                    MercadoPagoConfig::setAccessToken(config('mercadopago.access_token'));
 
-    public function paymentConfirmation(Request $request)
-    {
-        Log::info(collect($request->input()));
-    }
+                    $paymentClient = new PaymentClient;
+                    $payment = $paymentClient->get($id);
+
+                    if ($payment->status === 'approved') {
+
+                        $orderId = $payment->external_reference;
+                        $order = Order::find($orderId);
+
+                        if ($order && $order->status !== 'paid') {
+                            $order->status = 'paid';
+                            $order->paid_at = $payment->date_approved;
+                            $order->save();
+
+                            Log::info("Orden #{$order->id} marcada como pagada vía webhook.");
+                        }
+                    }
+                } catch (\Exception $e) {
+                    Log::error('Error al procesar webhook: ' . $e->getMessage());
+                }
+            }
+
+            return response()->json(['status' => 'ok'], 200);
+        }
 }

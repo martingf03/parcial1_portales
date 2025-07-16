@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:title>Pago Orden #{{ $order->id }}</x-slot:title>
-    <div class="container">
-        <h2 class="text-center">Procesar pago de Orden #{{ $order->id }}</h2>
+    <div class="container my-3">
+        <h1 class="text-center">Procesar pago de Orden #{{ $order->id }}</h1>
         <div class="bg-light rounded p-4 my-4 shadow-sm custom-mq mx-auto">
             <p class="text-center text-blue-mp mb-2">Continuar a:</p>
             <div id="checkout" class="mx-auto w-100"></div>

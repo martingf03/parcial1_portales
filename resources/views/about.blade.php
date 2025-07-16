@@ -5,7 +5,7 @@
         <h1 class="d-none">Quiénes somos</h1>
         <div class="row d-flex flex-column-reverse flex-lg-row">
             <div class="col-12 col-lg-7 col-xl-6 d-flex justify-content-center">
-                <img src="{{ url('img/about.jpg') }}" alt="Banner de inicio" class="d-block rounded">
+                <img src="{{ secure_asset('/img/about.jpg') }}" alt="Banner de inicio" class="d-block rounded">
             </div>
             <div class="col-12 col-lg-5 col-xl-6 d-flex align-items-center">
                 <div class="p-4">
