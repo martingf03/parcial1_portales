@@ -131,6 +131,8 @@ class OrderController extends Controller
             'currency_id' => 'ARS'
         ];
 
+        // Esta es la forma que encontré para que mercadopago me reconozca las redirecciones. Aún usando Ngrok o Cloudflared, la url me la estaba mandando como http, lo que me trancaba el auto_return.
+        // Con str_replace, busco la expresión 'http://' y la reemplaza por 'https://'.
         $backUrls = array(
             'success' => str_replace('http://', 'https://', route('orders.success', $order)),
             'failure' => str_replace('http://', 'https://', route('orders.failure', $order)),

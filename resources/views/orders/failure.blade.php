@@ -5,6 +5,9 @@
         <div class="my-card custom-mq p-5 my-3 mx-auto">
             <div class="mx-auto d-flex justify-content-center mb-4">
                 <img src="{{ secure_asset('img/failure.png') }}" alt="Pago rechazado" class="img-success">
+                {{-- Para usarlo con Ngrok o Cloudflared, todos los métodos url los cambie por secure_asset, para forzar protocolo seguro https. --}}
+                {{-- Para ejecutarlo desde localhost, debe usarse método url. --}}
+                {{-- <img src="{{ url('img/failure.png') }}" alt="Pago rechazado" class="img-success"> --}}
             </div>
             <p class="text-center mb-2">
                 Lamentablemente, la orden #{{ $order->id }} no pudo ser procesada. <br>
